@@ -1,0 +1,81 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+
+
+        {
+            "label": "Build Example (Debug)",
+            "type": "shell",
+            "command": "bazel build :example -c dbg",
+            "windows": {
+              "command": "bazel build :example --experimental_enable_runfiles -c dbg"
+            },
+            "osx": {
+              "command": "bazel build :example -c dbg --spawn_strategy=standalone",
+            },
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            },
+          },
+    
+
+
+
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "clang++",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "${fileDirname}/${fileBasename}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "type": "shell",
+            "label": "clang++ build active file",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "g++ build active file",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            }
+        }
+    ]
+}
